@@ -1,32 +1,40 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 //https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
 func lengthOfLongestSubstring(s string) int {
-	bSlice := []byte(s)
+	if len(s) <= 1 {
+		return len(s)
+	}
 	var max int
-	for index, c := range bSlice {
-		if index == len(bSlice)-1 {
-			break
-		}
-		subSlice := []byte{c}
-		for i := index + 1; i < len(bSlice); i++ {
-			for _, oc := range subSlice {
-				if bSlice[i] == oc {
-					break
-				}
+	for index := 0; index < len(s)-1; index++ {
+		var endIndex int
+		for i := index + 1; i < len(s); i++ {
+			this := string(s[i])
+			if strings.Contains(s[index:i], this) {
+				break
 			}
-			subSlice = append(subSlice, bSlice[i])
-			fmt.Println(string(subSlice))
-
+			endIndex = i
 		}
-		if len(subSlice) > max {
-			max = len(subSlice)
+		var sub string
+		if endIndex >= len(s) {
+			sub = s[index:]
+		} else if endIndex == 0 {
+			sub = s[index:index+1]
+		}else {
+			sub = s[index:endIndex+1]
+		}
+		if len(sub) > max {
+			max = len(sub)
 		}
 	}
 	return max
 }
+
 func main() {
 	fmt.Println(lengthOfLongestSubstring("abcabcbb"))
 }
