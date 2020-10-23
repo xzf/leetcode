@@ -54,8 +54,4 @@ func main() {
 		fmt.Println(r.Val)
 		r = r.Next
 	}
-	/*
-		[2,7,11,15]
-		9
-	*/
 }
