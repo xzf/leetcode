@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+//link https://leetcode.cn/problems/median-of-two-sorted-arrays/
+
 func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	sLen := len(nums1) + len(nums2)
 	index1, index2, index ,last := 0, 0, 0, 0
