@@ -14,31 +14,35 @@ type ListNode struct {
 	Val  int
 	Next *ListNode
 }
+
 //https://leetcode-cn.com/problems/add-two-numbers/
-func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-	result := &ListNode{}
-	head := result
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) (head *ListNode) {
+	var p *ListNode
+	top := 0
 	for {
 		if l1 == nil && l2 == nil {
 			break
 		}
+		val := top
 		if l1 != nil {
-			result.Val += l1.Val
+			val += l1.Val
 			l1 = l1.Next
 		}
 		if l2 != nil {
-			result.Val += l2.Val
+			val += l2.Val
 			l2 = l2.Next
 		}
-		var val int
-		if result.Val >= 10 {
-			val = result.Val / 10
-			result.Val = result.Val % 10
+		top, val = val/10, val%10
+		if head == nil {
+			head = &ListNode{Val: val}
+			p = head
+		} else {
+			p.Next = &ListNode{Val: val}
+			p = p.Next
 		}
-		if l1 != nil || l2 != nil || val != 0 {
-			result.Next = &ListNode{Val: val}
-			result = result.Next
-		}
+	}
+	if top != 0 {
+		p.Next = &ListNode{Val: top}
 	}
 	return head
 }
